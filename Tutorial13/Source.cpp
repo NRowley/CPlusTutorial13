@@ -20,14 +20,61 @@ public:
 	float* CharacterHealth;
 };
 
+void AddToCount() {
+	static int count = 0;
+	count++;
+	cout << count << endl;
+}
 
+class Item {
+public:
+	Item() {
+		cout << "Item created \n";
+	}
+	~Item() {
+		cout << "Item destroyed \n";
+	}
+};
+
+class Critter {
+public:
+	Critter() {
+		cout << "Critter is born \n";
+		CritterCount++;
+	}
+
+	static void showCritterCount() {
+		cout << CritterCount << endl;
+	}
+
+	static int CritterCount;
+};
+//can't init static vars in classes
+int Critter::CritterCount = 0;
 
 int main() {
 
-	Character* Char = new Character;
-	delete Char;
+	/*Character* Char = new Character;
+	delete Char;*/
 
+	/*for (int i = 0; i < 100; i++) {
+		AddToCount();
+	}*/
+	
+	//doesn't get deleted when the code is done with the scope
+	{
+		static Item item;
+	}
+	//don't need instace to modify static vars
+	Critter::CritterCount = 14;
 
+	cout << Critter::CritterCount << endl;
+	
+	Critter crit;
+	cout << Critter::CritterCount << endl;
+	Critter::showCritterCount();
+	Critter crit2;
+	cout << Critter::CritterCount << endl;
 
 	system("pause");
 }
